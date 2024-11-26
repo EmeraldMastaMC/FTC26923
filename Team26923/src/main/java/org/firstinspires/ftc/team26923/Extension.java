@@ -31,6 +31,9 @@ public class Extension extends TeleOpComponent {
 
     public Extension(HardwareMap hardwareMap, Gamepad gamepad, Pivot pivot) {
         extensionMotor = hardwareMap.get(DcMotorEx.class, EXTENSION_MOTOR_NAME);
+        extensionMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        extensionMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         this.pivot = pivot;
         setGamepad(gamepad);
         doesRequireThreadToInit();
@@ -38,6 +41,9 @@ public class Extension extends TeleOpComponent {
     }
     public Extension(HardwareMap hardwareMap, Pivot pivot) {
         extensionMotor = hardwareMap.get(DcMotorEx.class, EXTENSION_MOTOR_NAME);
+        extensionMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        extensionMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         this.pivot = pivot;
         setGamepad(null);
         disableAutoEnableControlsOnStart();
@@ -51,7 +57,7 @@ public class Extension extends TeleOpComponent {
         target = min;
     }
 
-    public void fullExtend() {
+    public void fullyExtend() {
         target = max;
     }
 
@@ -59,17 +65,25 @@ public class Extension extends TeleOpComponent {
         target = fullMax;
     }
 
-    public void fullContract() {
+    public void fullyContract() {
         target = min;
     }
 
 
     public void extend() {
-        target -= SENSITIVITY;
+        if (max > min) {
+            target += SENSITIVITY;
+        } else {
+            target -= SENSITIVITY;
+        }
     }
 
     public void contract() {
-        target += SENSITIVITY;
+        if (max > min) {
+            target -= SENSITIVITY;
+        } else {
+            target += SENSITIVITY;
+        }
     }
 
     public void analogSticks() {
@@ -87,7 +101,7 @@ public class Extension extends TeleOpComponent {
                         target -= analogStickControl * SENSITIVITY;
                     }
                 }
-            } else if (min >= max){
+            } else {
                 if (target < max) {
                     target = max + 1.0;
                 }
@@ -104,7 +118,7 @@ public class Extension extends TeleOpComponent {
             if (Math.abs(analogStickControl) > ANALOG_STICK_DEADZONE) {
                 if (max > min) {
                     target -= analogStickControl * SENSITIVITY;
-                } else if (min >= max) {
+                } else  {
                     target += analogStickControl * SENSITIVITY;
                 }
 
@@ -137,7 +151,7 @@ public class Extension extends TeleOpComponent {
     @Override
     public void poll() {
         double pos = extensionMotor.getCurrentPosition();
-        if(max > min) {
+        if (max > min) {
             if (upControl && (pos < max)) {
                 extend();
             }
@@ -145,7 +159,7 @@ public class Extension extends TeleOpComponent {
                 contract();
             }
 
-        } else if (min >= max){
+        } else {
             if (upControl && (pos > max)) {
                 extend();
             }
@@ -154,10 +168,10 @@ public class Extension extends TeleOpComponent {
             }
         }
         if (downPresetControl) {
-            fullContract();
+            fullyContract();
         }
         if (upPresetControl) {
-            fullExtend();
+            fullyExtend();
         }
         analogSticks();
         extensionMotor.setPower(pid.control(target, extensionMotor.getCurrentPosition()));
@@ -165,11 +179,11 @@ public class Extension extends TeleOpComponent {
 
     @Override
     public void init() {
-        fullContract();
+        fullyContract();
     }
 
     @Override
     public void deinit() {
-        fullContract();
+        fullyContract();
     }
 }

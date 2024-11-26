@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.team26923;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -38,7 +39,13 @@ public class Pivot extends TeleOpComponent {
 
     public Pivot(HardwareMap hardwareMap, Gamepad gamepad) {
         pivotMotorLeft = hardwareMap.get(DcMotor.class, PIVOT_MOTOR_LEFT_NAME);
+        pivotMotorLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        pivotMotorLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+
         pivotMotorRight = hardwareMap.get(DcMotor.class, PIVOT_MOTOR_RIGHT_NAME);
+        pivotMotorRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        pivotMotorRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+
         setGamepad(gamepad);
         doesRequireThreadToInit();
         initMinMax();
@@ -46,7 +53,13 @@ public class Pivot extends TeleOpComponent {
 
     public Pivot(HardwareMap hardwareMap) {
         pivotMotorLeft = hardwareMap.get(DcMotor.class, PIVOT_MOTOR_LEFT_NAME);
+        pivotMotorLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        pivotMotorLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+
         pivotMotorRight = hardwareMap.get(DcMotor.class, PIVOT_MOTOR_RIGHT_NAME);
+        pivotMotorRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        pivotMotorRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+
         setGamepad(null);
         disableAutoEnableControlsOnStart();
         doesRequireThreadToInit();
