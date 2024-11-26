@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.team26923.GalaxyRunner.PID;
 import org.firstinspires.ftc.team26923.GalaxyRunner.TeleOpComponent;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.PID;
 
 public class Extension extends TeleOpComponent {
     private static final String EXTENSION_MOTOR_NAME = "extension_motor";

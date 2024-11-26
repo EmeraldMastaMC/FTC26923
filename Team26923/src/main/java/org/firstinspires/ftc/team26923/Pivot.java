@@ -2,11 +2,12 @@ package org.firstinspires.ftc.team26923;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.team26923.GalaxyRunner.PID;
 import org.firstinspires.ftc.team26923.GalaxyRunner.TeleOpComponent;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.PID;
 
 public class Pivot extends TeleOpComponent {
     private static final double SENSITIVITY = 1.2;
@@ -41,6 +42,7 @@ public class Pivot extends TeleOpComponent {
         pivotMotorLeft = hardwareMap.get(DcMotor.class, PIVOT_MOTOR_LEFT_NAME);
         pivotMotorLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         pivotMotorLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        pivotMotorLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         pivotMotorRight = hardwareMap.get(DcMotor.class, PIVOT_MOTOR_RIGHT_NAME);
         pivotMotorRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
@@ -55,6 +57,7 @@ public class Pivot extends TeleOpComponent {
         pivotMotorLeft = hardwareMap.get(DcMotor.class, PIVOT_MOTOR_LEFT_NAME);
         pivotMotorLeft.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         pivotMotorLeft.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        pivotMotorLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         pivotMotorRight = hardwareMap.get(DcMotor.class, PIVOT_MOTOR_RIGHT_NAME);
         pivotMotorRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);

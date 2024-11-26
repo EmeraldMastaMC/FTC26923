@@ -33,7 +33,7 @@ package org.firstinspires.ftc.team26923;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.team26923.GalaxyRunner.Galaxy;
 import org.firstinspires.ftc.team26923.GalaxyRunner.Pollable;
-import static org.firstinspires.ftc.team26923.GalaxyRunner.Utils.waitUntilStopRequested;
+import static org.firstinspires.ftc.team26923.GalaxyRunner.Utils.Common.waitUntilStopRequested;
 import java.util.ArrayList;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="TeleOp")
