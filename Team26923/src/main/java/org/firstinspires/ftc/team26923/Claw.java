@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.team26923;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import org.firstinspires.ftc.teamcode.GalaxyRunner.TeleOpComponent;
+import org.firstinspires.ftc.team26923.GalaxyRunner.TeleOpComponent;
 
 public class Claw extends TeleOpComponent {
 

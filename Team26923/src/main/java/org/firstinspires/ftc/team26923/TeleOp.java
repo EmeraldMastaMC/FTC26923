@@ -26,14 +26,14 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.team26923;
 
 
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import org.firstinspires.ftc.teamcode.GalaxyRunner.Galaxy;
-import org.firstinspires.ftc.teamcode.GalaxyRunner.Pollable;
-import static org.firstinspires.ftc.teamcode.GalaxyRunner.Utils.waitUntilStopRequested;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Galaxy;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Pollable;
+import static org.firstinspires.ftc.team26923.GalaxyRunner.Utils.waitUntilStopRequested;
 import java.util.ArrayList;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="TeleOp")

@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.team26923;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import org.firstinspires.ftc.teamcode.GalaxyRunner.Galaxy;
-import org.firstinspires.ftc.teamcode.GalaxyRunner.Pollable;
-import org.firstinspires.ftc.teamcode.GalaxyRunner.Pose2D;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Galaxy;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Pollable;
+import org.firstinspires.ftc.team26923.GalaxyRunner.Pose2D;
 
 import java.util.ArrayList;
 

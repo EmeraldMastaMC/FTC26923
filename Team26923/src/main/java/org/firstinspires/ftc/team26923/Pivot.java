@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.team26923;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.GalaxyRunner.PID;
-import org.firstinspires.ftc.teamcode.GalaxyRunner.TeleOpComponent;
+import org.firstinspires.ftc.team26923.GalaxyRunner.PID;
+import org.firstinspires.ftc.team26923.GalaxyRunner.TeleOpComponent;
 
 public class Pivot extends TeleOpComponent {
     private static final double SENSITIVITY = 1.2;
