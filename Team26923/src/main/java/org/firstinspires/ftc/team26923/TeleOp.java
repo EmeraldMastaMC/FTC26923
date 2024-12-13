@@ -36,11 +36,14 @@ import org.firstinspires.ftc.team26923.GalaxyRunner.Pollable;
 import static org.firstinspires.ftc.team26923.GalaxyRunner.Utils.Common.waitUntilStopRequested;
 import java.util.ArrayList;
 
+
+
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="TeleOp")
 public class TeleOp extends LinearOpMode {
+    static Galaxy galaxy;
+    static boolean firstTime = true;
     @Override
     public void runOpMode() {
-        // Create Components
         Claw claw = new Claw(hardwareMap, gamepad2);
         Pivot pivot = new Pivot(hardwareMap, gamepad2);
         Extension extension = new Extension(hardwareMap, gamepad2, pivot);
@@ -50,9 +53,16 @@ public class TeleOp extends LinearOpMode {
         components.add(claw);
         components.add(extension);
         components.add(pivot);
+        if (firstTime) {
+            galaxy = new Galaxy(hardwareMap, gamepad1, telemetry, components);
+            firstTime = false;
+        } else {
+            galaxy.stop();
+        }
+
 
         // Create our galaxy
-        Galaxy galaxy = new Galaxy(hardwareMap, gamepad1, telemetry, components);
+
 
         // Runs initialize on all components anything
         galaxy.initialize();
@@ -64,8 +74,8 @@ public class TeleOp extends LinearOpMode {
         claw.open();
 
         // We are able to control our components until we press stop on the driver hub
-        waitUntilStopRequested(this);
+        while (opModeIsActive()) {
+        }
 
-        galaxy.stop();
     }
 }
