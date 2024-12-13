@@ -11,7 +11,7 @@ import org.firstinspires.ftc.team26923.GalaxyRunner.Utils.PID;
 
 public class Pivot extends TeleOpComponent {
     private static final double SENSITIVITY = 1.2;
-    private static final double RELATIVE_MAX = -700;
+    private static final double RELATIVE_MAX = 1000;
     private static final double HIGH_BASKET_PRESET_DEG = 75.0;
     private static final double LOW_BASKET_PRESET_DEG = 45.0;
     private static final double START_PRESET_DEG = 37.0;
@@ -27,7 +27,8 @@ public class Pivot extends TeleOpComponent {
     private final DcMotor pivotMotorLeft;
     private final DcMotor pivotMotorRight;
 
-    private final PID normalPID = new PID(0.1275, 0.0, 0.0);
+    //private final PID normalPID = new PID(0.1275, 0.0, 0.0);
+    private final PID normalPID = new PID(0.1, 0.0, 0.0);
     private final PID slowPID = new PID(0.01, 0.0, 0.0);
     private PID pid = normalPID;
 
@@ -47,6 +48,7 @@ public class Pivot extends TeleOpComponent {
         pivotMotorRight = hardwareMap.get(DcMotor.class, PIVOT_MOTOR_RIGHT_NAME);
         pivotMotorRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         pivotMotorRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        pivotMotorRight.setDirection(DcMotorSimple.Direction.FORWARD);
 
         setGamepad(gamepad);
         doesRequireThreadToInit();
@@ -62,6 +64,7 @@ public class Pivot extends TeleOpComponent {
         pivotMotorRight = hardwareMap.get(DcMotor.class, PIVOT_MOTOR_RIGHT_NAME);
         pivotMotorRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         pivotMotorRight.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        pivotMotorRight.setDirection(DcMotorSimple.Direction.FORWARD);
 
         setGamepad(null);
         disableAutoEnableControlsOnStart();
@@ -106,10 +109,10 @@ public class Pivot extends TeleOpComponent {
             }
         }
         if ((downControl > 0.0) && (targetDeg >= 0.0)) {
-            targetDeg -= downControl * SENSITIVITY;
+            setTargetDegrees(targetDeg - (-downControl) * SENSITIVITY);
         }
         if ((upControl > 0.0) && (targetDeg <= 90.0)) {
-            targetDeg += upControl * SENSITIVITY;
+            setTargetDegrees(targetDeg + (-upControl) * SENSITIVITY);
         }
         if (Math.abs(analogStickControl) > 0.03) {
             analogSticks();
@@ -145,9 +148,9 @@ public class Pivot extends TeleOpComponent {
             }
             targetDeg = deg;
             if (max > min) {
-                target = (range * targetMultiplier) + min;
+                target = min + (range * targetMultiplier);
             } else if (min >= max) {
-                target = -(range * targetMultiplier) + min;
+                target = min - (range * targetMultiplier);
             }
         }
     }

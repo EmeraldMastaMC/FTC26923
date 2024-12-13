@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.team26923;
 
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -7,30 +9,48 @@ import org.firstinspires.ftc.team26923.GalaxyRunner.TeleOpComponent;
 
 public class Claw extends TeleOpComponent {
 
-    private static final double LEFT_CLOSE_TARGET = 1.0;
-    private static final double RIGHT_CLOSE_TARGET = 0.0;
-    private static final double LEFT_OPEN_TARGET = 0.5;
-    private static final double RIGHT_OPEN_TARGET = 0.5;
-    private static final double LEFT_FULL_OPEN_TARGET = 0.0;
-    private static final double RIGHT_FULL_OPEN_TARGET = 1.0;
     private static final String LEFT_SERVO_NAME = "left claw";
     private static final String RIGHT_SERVO_NAME = "right claw";
-    private final Servo leftServo;
-    private final Servo rightServo;
+    private final CRServo leftServo;
+    private final CRServo rightServo;
     private boolean openControl;
     private boolean closeControl;
+
     public Claw(HardwareMap hardwareMap, Gamepad gamepad) {
-        rightServo = hardwareMap.get(Servo.class, RIGHT_SERVO_NAME);
-        leftServo = hardwareMap.get(Servo.class, LEFT_SERVO_NAME);
+        rightServo = hardwareMap.get(CRServo.class, RIGHT_SERVO_NAME);
+        leftServo = hardwareMap.get(CRServo.class, LEFT_SERVO_NAME);
         setGamepad(gamepad);
         init();
     }
     public Claw(HardwareMap hardwareMap) {
-        rightServo = hardwareMap.get(Servo.class, RIGHT_SERVO_NAME);
-        leftServo = hardwareMap.get(Servo.class, LEFT_SERVO_NAME);
+        rightServo = hardwareMap.get(CRServo.class, RIGHT_SERVO_NAME);
+        leftServo = hardwareMap.get(CRServo.class, LEFT_SERVO_NAME);
         setGamepad(null);
         disableAutoEnableControlsOnStart();
         init();
+    }
+
+    public void close() {
+        rightServo.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightServo.setPower(1.0);
+
+        leftServo.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftServo.setPower(1.0);
+    }
+    public void open() {
+        rightServo.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightServo.setPower(1.0);
+
+        leftServo.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftServo.setPower(1.0);
+    }
+
+    public void stopServos() {
+        rightServo.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightServo.setPower(0.0);
+
+        leftServo.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftServo.setPower(0.0);
     }
     @Override
     public void controls() {
@@ -44,19 +64,6 @@ public class Claw extends TeleOpComponent {
         openControl = false;
         closeControl = false;
     }
-    public void close() {
-        rightServo.setPosition(RIGHT_CLOSE_TARGET);
-        leftServo.setPosition(LEFT_CLOSE_TARGET);
-    }
-    public void open() {
-        rightServo.setPosition(RIGHT_OPEN_TARGET);
-        leftServo.setPosition(LEFT_OPEN_TARGET);
-    }
-
-    public void fullOpen() {
-        rightServo.setPosition(RIGHT_FULL_OPEN_TARGET);
-        leftServo.setPosition(LEFT_FULL_OPEN_TARGET);
-    }
     @Override
     public void poll() {
         if (openControl) {
@@ -65,14 +72,8 @@ public class Claw extends TeleOpComponent {
         if (closeControl) {
             close();
         }
-    }
-
-    @Override
-    public void init() {
-        fullOpen();
-    }
-    @Override
-    public void preStart() {
-        open();
+        if (!closeControl && !openControl) {
+            stopServos();
+        }
     }
 }
